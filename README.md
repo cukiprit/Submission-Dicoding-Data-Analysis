@@ -12,6 +12,8 @@ The data can be categorized into several groups:
   This includes the year, month, and whether the day is a holiday or working day.
 - Weather-related:
   This includes the weather situation, temperature, humidity, and wind speed.
+- Season-related:
+  This includes the season situation.
 - User-related:
   This includes the count of casual users, registered users, and total rental bikes.
 

@@ -144,29 +144,44 @@ with col3:
 st.subheader("Total Rentals")
 st.line_chart(data=main_df, x="dteday", y="cnt")
 
-col1, col2 = st.columns(2)
+st.subheader("Total Casual Users Rentals")
+st.line_chart(data=main_df, x="dteday", y="casual")
 
-with col1:
-    st.subheader("Total Casual Users Rentals")
-    st.line_chart(data=main_df, x="dteday", y="casual")
-
-with col2:
-    st.subheader("Total Registered Users Rentals")
-    st.line_chart(data=main_df, x="dteday", y="registered")
+st.subheader("Total Registered Users Rentals")
+st.line_chart(data=main_df, x="dteday", y="registered")
 
 st.subheader("Seasonal Trends")
 st.line_chart(data=monthly_data)
+
+# Temperature trends over time
+st.subheader("Temperature Trends")
+st.line_chart(data=main_df, x="dteday", y="temp")
+
+# Humidity trends over time
+st.subheader("Humidity Trends")
+st.line_chart(data=main_df, x="dteday", y="hum")
+
+# Wind speed trends over time
+st.subheader("Wind Speed Trends")
+st.line_chart(data=main_df, x="dteday", y="windspeed")
+
+# Correlation between temperature and humidity
+correlation_temp_hum, _ = pearsonr(main_df["temp"], main_df["hum"])
+st.write(
+    f"Correlation between Temperature and Humidity: {correlation_temp_hum * 100:.2f}%"
+)
+st.write(f"Correlation between temperature and total rentals: {correlation * 100:.2f}%")
+
+# Additional statistics and insights about weather variables
+mean_temp = main_df["temp"].mean()
+max_wind_speed = main_df["windspeed"].max()
+min_humidity = main_df["hum"].min()
+
+st.write(f"Mean Temperature: {mean_temp:.2f}")
+st.write(f"Max Wind Speed: {max_wind_speed:.2f}")
+st.write(f"Min Humidity: {min_humidity:.2f}")
 
 st.subheader("Weather Impact")
 fig = plt.figure(figsize=(10, 5))
 sns.boxplot(x="weathersit", y="cnt", data=numerical_df)
 st.pyplot(fig)
-
-st.subheader("User Behavior")
-st.line_chart(
-    data=categorical_df, x="mnth", y=["casual_percentage", "registered_percentage"]
-)
-
-st.subheader(
-    f"Correlation between temperature and total rentals: {round(correlation * 100)}%"
-)
