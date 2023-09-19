@@ -63,8 +63,8 @@ def create_registered_daily_rentals(df):
     return register_rentals
 
 
-categorical_df = pd.read_csv("data/categorical_df.csv")
-numerical_df = pd.read_csv("data/numerical_df.csv")
+categorical_df = pd.read_csv("./categorical_df.csv")
+numerical_df = pd.read_csv("./numerical_df.csv")
 
 monthly_data = numerical_df.groupby("mnth").sum()["cnt"]
 
