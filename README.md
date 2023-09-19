@@ -1,3 +1,16 @@
+# Bike Rentals Data Analyst
+
+## Setup environment
+
+    conda create --name data-analyst
+    conda activate data-analyst
+    pip install numpy pandas scipy matplotlib seaborn streamlit
+
+## Run streamlit app
+
+    cd dashboard
+    streamlit run main.py
+
 ## How to use
 
 Guide on how to use the website for your bike rental data analysis:
