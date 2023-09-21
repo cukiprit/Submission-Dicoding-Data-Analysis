@@ -137,31 +137,7 @@ with st.container():
     st.header("Introduction")
     st.markdown(
         """
-        The metrics displayed above offer valuable insights into daily bike rentals spanning from January 1, 2011, to December 31, 2012, while considering influential factors such as weather and season. 'Total Rentals' provides a comprehensive overview, aggregating the cumulative count of all bike rentals ('cnt') to present a holistic perspective on overall bike usage. Additionally, 'Total Casual Users Rental' and 'Total Registered Users Rental' offer a detailed segmentation, shedding light on rental preferences among user types ('casual' and 'registered').
-
-        Furthermore, the 'Delta' values accompanying these metrics represent day-to-day rental fluctuations. These variations encapsulate not only daily rental patterns but also account for the dynamic influence of external factors such as weather conditions ('Clear, Few clouds, Partly cloudy, Partly cloudy', 'Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist', 'Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds') and seasonal transitions ('Springer', 'Summer', 'Fall', 'Winter'). By continuously tracking these multifaceted trends over time, we gain profound insights into the intricate dynamics of bike rentals, enabling data-driven decisions related to resource allocation and service enhancements.
-        """
-    )
-
-    st.divider()
-
-    st.header("Business Questions")
-
-    st.markdown(
-        """
-        The dataset can be systematically categorized into distinct groups, each offering valuable insights:
-
-        - Temporal Attributes:
-          This category encompasses temporal aspects, including the year, month, day. Analyzing these temporal trends allows us to discern patterns related to time-based variations in bike rentals.
-
-        - Weather-Related Metrics:
-          Within this group, we consider weather-related parameters such as the prevailing weather conditions, temperature, humidity levels, and wind speed. Examining these variables aids in understanding the impact of weather on bike rental demand and usage patterns.
-
-        - Seasonal Characteristics:
-          This category focuses on the seasonal context, identifying the prevailing season at a given time. Seasonal variations are pivotal in discerning how rental patterns evolve throughout the year.
-
-        - User-Related Metrics:
-          Here, we delve into user-specific data, comprising the counts of casual users, registered users, and the total number of rental bikes. This segmentation enables a comprehensive analysis of user behavior and preferences.
+        The data set in question provides comprehensive information about bike rentals over the course of two years (2011 and 2012). The data is categorized by various factors such as time (year, month, hour), weather conditions (temperature, humidity, wind speed), and user type (casual or registered). This report aims to analyze this data, focusing specifically on the daily data, to identify patterns and correlations that could provide valuable insights for business development.
         """
     )
 
@@ -196,14 +172,6 @@ with st.container():
             delta=register_rentals["register_diff"].iloc[-1],
         )
 
-    st.caption(
-        f"""
-        The metrics displayed above offer valuable insights into daily bike rentals spanning from {start_date} to {end_date}, while considering influential factors such as weather and season. 'Total Rentals' provides a comprehensive overview, aggregating the cumulative count of all bike rentals ('cnt') to present a holistic perspective on overall bike usage. Additionally, 'Total Casual Users Rental' and 'Total Registered Users Rental' offer a detailed segmentation, shedding light on rental preferences among user types ('casual' and 'registered').
-
-        Furthermore, the 'Delta' values accompanying these metrics represent day-to-day rental fluctuations. These variations encapsulate not only daily rental patterns but also account for the dynamic influence of external factors such as weather conditions ('Clear, Few clouds, Partly cloudy, Partly cloudy', 'Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist', 'Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds') and seasonal transitions ('Springer', 'Summer', 'Fall', 'Winter'). By continuously tracking these multifaceted trends over time, we gain profound insights into the intricate dynamics of bike rentals, enabling data-driven decisions related to resource allocation and service enhancements.
-        """
-    )
-
 st.divider()
 
 with st.container():
@@ -223,14 +191,6 @@ with st.container():
             label="Correlation between Temperature and Total Rentals",
             value=f"{correlation * 100:.2f}%",
         )
-
-    st.caption(
-        f"""
-        The analysis reveals insightful correlations between various factors impacting bike rentals. First, the 'Correlation between Temperature and Humidity' stands at {correlation_temp_hum * 100:.2f}%. This suggests a relatively weak relationship between temperature and humidity, implying that changes in one variable do not significantly affect the other.
-        
-        On the other hand, the 'Correlation between Temperature and Total Rentals' is notably stronger at {correlation * 100:.2f}%. This indicates a substantial connection between temperature and bike rentals, with higher temperatures generally associated with increased rental activity. As temperature rises, more people are inclined to rent bikes, likely due to favorable weather conditions. Understanding these correlations can help us make informed decisions and predict rental patterns based on temperature changes.
-        """
-    )
 
 st.divider()
 
@@ -252,16 +212,6 @@ with st.container():
             value=main_df["cnt"].min(),
         )
 
-    st.caption(
-        """
-        Analyzing the bike rental data, we observe intriguing statistics regarding the total rental counts ('cnt'). At its peak, we witnessed a remarkable day with a staggering 'Max Rentals' of 8714. On this particular day, bike usage reached its zenith, reflecting exceptional demand, possibly driven by ideal weather conditions or special events.
-
-        Conversely, the dataset also reveals a contrasting scenario. On the other end of the spectrum, we encountered a day with 'Min Rentals' as low as 22. This represents a day of minimal bike rental activity, which could be attributed to adverse weather, holidays, or other factors influencing reduced bike usage.
-
-        These extreme values in rental counts provide valuable insights into the dynamics of bike rentals, helping us identify both peak performance and potential areas for improvement in the bike rental service.
-        """
-    )
-
 st.divider()
 
 with st.container():
@@ -282,16 +232,6 @@ with st.container():
             value=main_df["casual"].min(),
         )
 
-    st.caption(
-        f"""
-        Exploring the data, we uncover intriguing statistics regarding casual bike rentals. At its peak, we observed an exceptional day with 'Max Rentals' reaching {main_df['casual'].max()} casual users. On this remarkable day, the demand for casual bike rentals surged to its highest point, signifying strong interest and potentially favorable weather conditions or special events that attracted users.
-
-        Conversely, our analysis also unveils a contrasting scenario. On the other end of the spectrum, we encountered a day with 'Min Rentals' as low as {main_df['casual'].min()} casual rentals. On this particular day, rental activity among casual users was minimal, which could be attributed to factors like inclement weather or other external influences.
-
-        These extreme values in casual bike rentals offer valuable insights into the dynamics of casual user preferences and the potential impact of external factors on their rental behavior. Understanding these variations can aid in optimizing service strategies to cater more effectively to casual users.
-        """
-    )
-
 st.divider()
 
 with st.container():
@@ -311,16 +251,6 @@ with st.container():
             label="Min Rentals",
             value=main_df["registered"].min(),
         )
-
-    st.caption(
-        f"""
-        Delving into the dataset, we uncover noteworthy statistics pertaining to registered bike rentals. At its zenith, we observed an exceptional day with 'Max Rentals' peaking at {main_df['registered'].max()} registered users. On this remarkable day, registered bike rentals surged to their highest point, reflecting a robust demand and possibly ideal weather conditions or special events that enticed users to explore casual bike usage extensively.
-
-        Conversely, our analysis also reveals a contrasting scenario. At the other end of the spectrum, we encountered a day with 'Min Rentals' dwindling to as low as {main_df['registered'].min()} registered rentals. On this particular day, rental activity among casual users reached its nadir, possibly influenced by adverse weather conditions or other external factors.
-
-        These extreme values in registered bike rentals provide valuable insights into the dynamic preferences of registered users and underscore the potential impact of external variables on their rental behavior. Understanding these fluctuations can guide strategic decisions aimed at enhancing the service experience for registered riders.
-        """
-    )
 
 st.divider()
 
@@ -365,28 +295,6 @@ with st.container():
             value=monthly_data.min(),
         )
 
-    st.caption(
-        """
-        here’s a more specific interpretation of the data:
-
-        Seasonal Trends:
-
-        - Spring: The average number of bike rentals is 2,604.13. This is the lowest among all seasons, possibly due to the transition from colder to warmer weather.
-        - Summer: The average number of bike rentals increases significantly to 4,992.33, likely due to warmer and more favorable weather for outdoor activities like biking.
-        - Fall: The average number of bike rentals is at its peak at 5,644.3. The mild weather during this season might be ideal for biking.
-        - Winter: The average number of bike rentals decreases to 4,728.16, likely due to colder weather.
-
-        Monthly Trends:
-
-        - The year starts with a moderate number of rentals in January (2,176.34), which increases slightly in February (2,655.3).
-        - In March, there’s a significant spike to 3,692.26 rentals. This could be due to warmer weather or other seasonal factors that make biking more popular.
-        - From April to September, the numbers remain relatively high, ranging from 4,484.9 (April) to 5,766.52 (September). This period likely represents the peak biking season.
-        - Starting in October, there’s a noticeable decrease in bike rentals, with numbers dropping to 3,403.81 by December. This could be due to colder weather or other factors that make biking less popular.
-
-        This pattern suggests a strong seasonal trend in bike rentals, with demand peaking in the warmer months and decreasing in the colder months. It also shows that within each season, certain months (like March in Spring, September in Fall) might have higher bike rentals due to specific weather conditions or events.
-        """
-    )
-
 st.divider()
 
 with st.container():
@@ -413,20 +321,6 @@ with st.container():
             value=f"{(main_df['temp'].min() * 100):.2f}°C",
         )
 
-    st.caption(
-        f"""
-        Our analysis of temperature data reveals key insights into the weather conditions during the period under examination.
-
-        At its highest point, we observed a 'Max Temperature' of {(main_df['temp'].max() * 100):.2f}°C, signifying the peak temperature experienced during this timeframe. This maximum temperature value serves as an indicator of the hottest days, where individuals might be more inclined to engage in outdoor activities, including bike rentals.
-
-        On average, the 'Mean Temperature' stands at {(main_df['temp'].mean() * 100):.2f}°C, providing an understanding of the typical temperature conditions throughout the dataset. This mean temperature serves as a central reference point, helping us gauge how the temperature typically behaves during the observed period.
-
-        Conversely, we also encountered instances where the temperature reached 'Min Temperature' values as low as {(main_df['temp'].min() * 100):.2f}. These minimum temperature values represent the coldest days within the dataset, potentially influencing user behavior and outdoor activities.
-
-        By examining these temperature metrics, we gain valuable insights into the range of temperature conditions experienced, allowing us to correlate weather patterns with bike rental trends and make data-informed decisions regarding resource allocation and service adjustments.
-        """
-    )
-
 with st.container():
     st.subheader("Humidity Trends")
     st.line_chart(data=main_df, x="dteday", y="hum")
@@ -441,20 +335,6 @@ with st.container():
 
     with col3:
         st.metric(label="Min Humidity", value=f"{(main_df['hum'].min() * 100):.2f}%")
-
-    st.caption(
-        f"""
-        The humidity data you provided can be particularly insightful for your bike rental data analysis. Here's a more contextual explanation:
-
-        - Maximum Humidity: The peak recorded relative humidity was {(main_df['hum'].max() * 100):.2f}%. Such high humidity levels could potentially deter bike rentals due to the discomfort associated with heavy moisture in the air, often leading to heavy rainfall or dense fog conditions.
-
-        - Mean Humidity: The average relative humidity was {(main_df['hum'].mean() * 100):.2f}%. This moderate level of humidity suggests a balanced weather condition which might not significantly impact the decision to rent bikes.
-
-        - Minimum Humidity: The lowest recorded relative humidity was {(main_df['hum'].min() * 100):.2f}%, indicating extremely dry conditions. While low humidity might make the weather seem more pleasant for outdoor activities like biking, extremely dry conditions can also cause discomfort and could potentially impact bike rental numbers.
-
-        Understanding these humidity levels can help predict bike rental patterns and make informed decisions about resource allocation and marketing strategies. For instance, additional promotions could be planned for times when the weather is expected to have moderate humidity, which might boost rentals.
-        """
-    )
 
 with st.container():
     st.subheader("Wind Speed Trends")
@@ -530,22 +410,6 @@ with st.container():
     plt.legend()
 
     st.pyplot(plt)
-
-    st.caption(
-        """
-        Based on the line graph titled “Casual vs Registered Users Over Time”, we can observe the following rental patterns:
-
-        - Casual Users (Orange Line):
-            
-            The percentage of total rentals by casual users is higher than that of registered users for all months. There is a slight dip around the 6th month, after which it increases again. This suggests that casual users might be more influenced by factors such as weather, holidays, or events that occur around this time.
-
-        - Registered Users (Blue Line):
-        
-            The percentage of total rentals by registered users is lower than that of casual users. There is a slight increase around the 6th month, after which it decreases again. This could indicate that registered users have more consistent usage patterns throughout the year, but there might be certain times (like the 6th month) when their usage increases.
-
-        In summary, casual users tend to make up a higher percentage of total rentals and their usage appears to be more variable. On the other hand, registered users have a lower but more consistent percentage of total rentals.
-        """
-    )
 
 with st.container():
     st.subheader("Conclusion")
