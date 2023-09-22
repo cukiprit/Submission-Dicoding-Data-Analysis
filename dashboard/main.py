@@ -134,24 +134,24 @@ register_rentals["register_diff"] = register_rentals["registered"]["sum"].diff()
 with st.container():
     st.title("Bike Rentals Dashboard")
     st.divider()
-    st.header("Introduction")
+    st.header("Pengenalan")
     st.markdown(
         """
-        The data set in question provides comprehensive information about bike rentals over the course of two years (2011 and 2012). The data is categorized by various factors such as time (year, month, hour), weather conditions (temperature, humidity, wind speed), and user type (casual or registered). This report aims to analyze this data, focusing specifically on the daily data, to identify patterns and correlations that could provide valuable insights for business development.
+        Kumpulan data tersebut memberikan informasi komprehensif tentang persewaan sepeda selama dua tahun (2011 dan 2012). Data dikategorikan berdasarkan berbagai faktor seperti waktu (tahun, bulan, hari), kondisi cuaca (suhu, kelembapan, kecepatan angin), dan jenis pengguna (biasa atau terdaftar). Laporan ini bertujuan untuk menganalisis data tersebut, dengan fokus khusus pada data harian, untuk mengidentifikasi pola dan korelasi yang dapat memberikan wawasan berharga bagi pengembangan bisnis.
         """
     )
 
     st.divider()
 
 with st.container():
-    st.header("Daily Bike Rentals")
+    st.header("Penyewaan Sepeda Harian")
 
     col1, col2, col3 = st.columns(3)
 
     with col1:
         sum_total_rentals = total_rentals["cnt", "sum"].sum()
         st.metric(
-            label="Total Rentals",
+            label="Total Penyewaan",
             value=sum_total_rentals,
             delta=total_rentals["total_diff"].iloc[-1],
         )
@@ -159,7 +159,7 @@ with st.container():
     with col2:
         sum_casual_rentals = casual_rentals["casual", "sum"].sum()
         st.metric(
-            label="Total Casual Users Rental",
+            label="Total Penyewaan Pengguna Biasa",
             value=sum_casual_rentals,
             delta=casual_rentals["casual_diff"].iloc[-1],
         )
@@ -167,7 +167,7 @@ with st.container():
     with col3:
         sum_register_rentals = register_rentals["registered", "sum"].sum()
         st.metric(
-            label="Total Registered Users Rental",
+            label="Total Penyewaan Pengguna Terdaftar",
             value=sum_register_rentals,
             delta=register_rentals["register_diff"].iloc[-1],
         )
@@ -175,27 +175,27 @@ with st.container():
 st.divider()
 
 with st.container():
-    st.header("Correlations Between Variables")
+    st.header("Korelasi antar variabel")
 
     col1, col2 = st.columns(2)
 
     with col1:
         correlation_temp_hum, _ = pearsonr(main_df["temp"], main_df["hum"])
         st.metric(
-            label="Correlation between Temperature and Humidity",
+            label="Korelasi antara suhu dan kelembapan",
             value=f"{correlation_temp_hum * 100:.2f}%",
         )
     with col2:
         correlation, _ = pearsonr(main_df["temp"], main_df["cnt"])
         st.metric(
-            label="Correlation between Temperature and Total Rentals",
+            label="Korelasi antara suhu dan total keseluruhan sewa",
             value=f"{correlation * 100:.2f}%",
         )
 
 st.divider()
 
 with st.container():
-    st.header(f"Total Rentals")
+    st.header(f"Total Penyewaan")
 
     st.line_chart(data=main_df, x="dteday", y="cnt")
 
@@ -215,7 +215,7 @@ with st.container():
 st.divider()
 
 with st.container():
-    st.header("Total Casual Users Rentals")
+    st.header("Total Penyewaan Pengguna Biasa")
 
     st.line_chart(data=main_df, x="dteday", y="casual")
 
@@ -235,7 +235,7 @@ with st.container():
 st.divider()
 
 with st.container():
-    st.subheader("Total Registered Users Rentals")
+    st.subheader("Total Penyewaan Pengguna Terdaftar")
     st.line_chart(data=main_df, x="dteday", y="registered")
 
     col1, col2 = st.columns(2)
@@ -255,7 +255,7 @@ with st.container():
 st.divider()
 
 with st.container():
-    st.subheader("Seasonal Trends")
+    st.subheader("Tren Musiman")
     st.line_chart(data=monthly_data)
 
     cat_col_vis = ["season", "mnth"]
@@ -298,7 +298,7 @@ with st.container():
 st.divider()
 
 with st.container():
-    st.subheader("Temperature Trends")
+    st.subheader("Tren Suhu")
     st.line_chart(data=main_df, x="dteday", y="temp")
 
     col1, col2, col3 = st.columns(3)
@@ -322,7 +322,7 @@ with st.container():
         )
 
 with st.container():
-    st.subheader("Humidity Trends")
+    st.subheader("Tren Kelembapan")
     st.line_chart(data=main_df, x="dteday", y="hum")
 
     col1, col2, col3 = st.columns(3)
@@ -337,7 +337,7 @@ with st.container():
         st.metric(label="Min Humidity", value=f"{(main_df['hum'].min() * 100):.2f}%")
 
 with st.container():
-    st.subheader("Wind Speed Trends")
+    st.subheader("Tren Kecepatan Angin")
     st.line_chart(data=main_df, x="dteday", y="windspeed")
 
     col1, col2, col3 = st.columns(3)
@@ -361,7 +361,7 @@ with st.container():
         )
 
 with st.container():
-    st.subheader("Weather Impact")
+    st.subheader("Pengaruh Cuaca")
 
     plt.figure(figsize=(10, 5))
     sns.boxplot(x="weathersit", y="cnt", data=numerical_df)
@@ -371,28 +371,8 @@ with st.container():
 
     st.pyplot(plt)
 
-    st.caption(
-        """
-        This graph is titled “Bike Rentals by Weather Situation”. The x-axis represents the “Weather Situation” with three categories: 1, 2, and 3. The y-axis represents the “Total Rentals” ranging from 0 to 8000. Weather significantly affects bike rentals in the following ways:
-
-        - Clear, Few clouds, Partly cloudy, Partly cloudy (Weather Situation 1):
-            
-            This is the most favorable weather for bike rentals with approximately 7500 rentals. Clear or partly cloudy weather is ideal for outdoor activities like biking.
-
-        - Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist (Weather Situation 2):
-        
-            This weather situation results in a decrease in bike rentals to approximately 5000. The presence of mist or broken clouds might make biking less appealing.
-
-        - Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds (Weather Situation 3):
-        
-            This weather situation has the least favorable conditions for biking with approximately 2500 rentals. Inclement weather like rain, snow, or thunderstorms can discourage people from outdoor activities like biking due to safety concerns and discomfort.
-
-        These trends suggest that favorable weather conditions (clear or partly cloudy) result in higher bike rentals while unfavorable conditions (rain, snow, thunderstorms) result in fewer rentals.
-        """
-    )
-
 with st.container():
-    st.subheader("User Impact")
+    st.subheader("Pengaruh Pengguna")
 
     numerical_df["casual_percentage"] = numerical_df["casual"] / numerical_df["cnt"]
     numerical_df["registered_percentage"] = (
@@ -412,97 +392,99 @@ with st.container():
     st.pyplot(plt)
 
 with st.container():
-    st.subheader("Conclusion")
+    st.subheader("Kesimpulan")
 
-    with st.expander("How do bike rentals vary across different seasons and months?"):
+    with st.expander(
+        "Bagaimana perbedaan penyewaan sepeda pada musim dan bulan yang berbeda?"
+    ):
         st.caption(
             """
-            These trends suggest that weather and temperature play a significant role in influencing bike rental patterns. Warmer months and seasons tend to see higher demand for bike rentals, while colder periods see a decrease in demand.
+            Tren ini menunjukkan bahwa cuaca dan suhu memainkan peranan penting dalam mempengaruhi pola penyewaan sepeda. Pada bulan-bulan dan musim-musim hangat cenderung terjadi peningkatan permintaan untuk persewaan sepeda, sedangkan pada periode-periode dingin terjadi penurunan permintaan.
             """
         )
 
-    with st.expander("How does weather affect bike rentals?"):
+    with st.expander("Bagaimana pengaruh cuaca terhadap persewaan sepeda?"):
         st.caption(
             """
-            - Clear, Few clouds, Partly cloudy, Partly cloudy (Weather Situation 1): This is the most favorable weather for bike rentals with approximately 7500 rentals. Clear or partly cloudy weather is ideal for outdoor activities like biking.
+            - Cerah, Sedikit awan, Berawan sebagian, Berawan sebagian (Situasi Cuaca 1): Ini adalah cuaca yang paling menguntungkan untuk persewaan sepeda dengan sekitar 7500 persewaan. Cuaca cerah atau berawan sebagian sangat ideal untuk aktivitas luar ruangan seperti bersepeda.
 
-            - Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist (Weather Situation 2): This weather situation results in a decrease in bike rentals to approximately 5000. The presence of mist or broken clouds might make biking less appealing.
+            - Kabut + Berawan, Kabut + Awan Pecah, Kabut + Sedikit Awan, Kabut (Situasi Cuaca 2): Situasi cuaca ini mengakibatkan penurunan jumlah penyewaan sepeda menjadi sekitar 5000. Kehadiran kabut atau awan pecah mungkin membuat bersepeda menjadi kurang menarik.
 
-            - Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds (Weather Situation 3): This weather situation has the least favorable conditions for biking with approximately 2500 rentals. Inclement weather like rain, snow, or thunderstorms can discourage people from outdoor activities like biking due to safety concerns and discomfort.
+            - Salju Ringan, Hujan Ringan + Badai Petir + Awan Tersebar, Hujan Ringan + Awan Tersebar (Situasi Cuaca 3): Situasi cuaca ini memiliki kondisi yang paling tidak menguntungkan untuk bersepeda dengan sekitar 2500 persewaan. Cuaca buruk seperti hujan, salju, atau badai petir dapat membuat orang enggan melakukan aktivitas luar ruangan seperti bersepeda karena alasan keamanan dan ketidaknyamanan.
             """
         )
 
     with st.expander(
-        "What are the differences between casual and registered users in terms of rental patterns?"
+        "Apa perbedaan antara pengguna biasa dan pengguna yang terdaftar dalam hal pola penyewaan?"
     ):
         st.caption(
             """
-            - Casual Users: 
-                
-                The percentage of total rentals by casual users is higher than that of registered users for all months. There is a slight dip around the 6th month, after which it increases again. This suggests that casual users might be more influenced by factors such as weather, holidays, or events that occur around this time.
+            - Pengguna Biasa:
 
-            - Registered Users:
+                Persentase total penyewaan oleh pengguna biasa lebih tinggi dibandingkan dengan pengguna terdaftar untuk semua bulan. Ada sedikit penurunan sekitar bulan ke-6, setelah itu meningkat lagi. Hal ini menunjukkan bahwa pengguna biasa mungkin lebih dipengaruhi oleh faktor-faktor seperti cuaca, hari libur, atau peristiwa yang terjadi pada waktu tersebut.
+
+            - Pengguna Terdaftar:
             
-                The percentage of total rentals by registered users is lower than that of casual users. There is a slight increase around the 6th month, after which it decreases again. This could indicate that registered users have more consistent usage patterns throughout the year, but there might be certain times (like the 6th month) when their usage increases.
+                Persentase total penyewaan oleh pengguna terdaftar lebih rendah dibandingkan dengan pengguna biasa. Ada sedikit kenaikan sekitar bulan ke 6, setelah itu turun lagi. Hal ini dapat menunjukkan bahwa pengguna terdaftar memiliki pola penggunaan yang lebih konsisten sepanjang tahun, namun mungkin ada waktu tertentu (misalnya bulan ke-6) ketika penggunaan mereka meningkat.
+            """
+        )
+
+    with st.expander("Apakah ada korelasi antara kondisi cuaca dan penyewaan sepeda?"):
+        st.caption(
+            """
+            Tampaknya ada korelasi yang kuat antara kondisi cuaca dan penyewaan sepeda, dengan cuaca cerah atau berawan sebagian menjadi pilihan yang paling menguntungkan bagi persewaan sepeda, dan kondisi cuaca buruk seperti salju ringan atau hujan menjadi yang paling tidak menguntungkan.
             """
         )
 
     with st.expander(
-        "Is there a correlation between weather conditions and bike rentals?"
+        "Bagaimana pengaruh waktu dalam setahun terhadap perilaku pengguna biasa versus pengguna terdaftar?"
     ):
         st.caption(
             """
-            there seems to be a strong correlation between weather conditions and bike rentals, with clear or partly cloudy weather being the most favorable for bike rentals, and adverse weather conditions like light snow or rain being the least favorable.
+            Tampaknya baik pengguna yang terdaftar maupun pengguna biasa lebih memilih untuk menyewa sepeda dalam kondisi cuaca cerah atau sebagian berawan sepanjang musim. Namun, pengguna yang terdaftar tampaknya lebih toleran terhadap kondisi cuaca buruk dibandingkan pengguna biasa. Informasi ini dapat berguna untuk memprediksi pola persewaan sepeda dan menginformasikan strategi pemasaran. Misalnya, promosi tambahan dapat direncanakan pada saat cuaca diperkirakan cerah atau berawan sebagian, sehingga dapat meningkatkan harga sewa di kalangan pengguna biasa. Sebaliknya, strategi dapat dikembangkan untuk mendorong penyewaan sepeda di kalangan pengguna biasa selama kondisi cuaca buruk.
             """
         )
 
     with st.expander(
-        "How does the time of year affect the behavior of casual versus registered users?"
+        "Bagaimana kita bisa mengoptimalkan ketersediaan sepeda sesuai tren musiman?"
     ):
         st.caption(
             """
-            It appears that both registered and casual users prefer to rent bikes under clear or partly cloudy weather conditions across all seasons. However, registered users seem to be more tolerant of adverse weather conditions compared to casual users. This information could be valuable for predicting bike rental patterns and informing marketing strategies. For instance, additional promotions could be planned for times when the weather is expected to be clear or partly cloudy, which might boost rentals among casual users. Conversely, strategies could be developed to encourage bike rentals among casual users during adverse weather conditions.
-            """
-        )
-
-    with st.expander(
-        "How can we optimize bike availability according to seasonal trends?"
-    ):
-        st.caption(
-            """
-            - Increase Availability During Peak Seasons:
+            - Meningkatkan Ketersediaan Selama Musim Puncak:
             
-                The data shows that bike rentals peak during the summer and fall seasons. Therefore, it would be beneficial to increase bike availability during these months to meet the high demand.
+                Data menunjukkan bahwa puncak persewaan sepeda terjadi pada musim panas dan musim gugur. Oleh karena itu, akan bermanfaat untuk meningkatkan ketersediaan sepeda selama bulan-bulan ini untuk memenuhi tingginya permintaan.
             
-            - Maintenance and Repair During Off-Peak Seasons:
+            - Perawatan dan Perbaikan Selama Musim Off-Peak:
                 
-                The winter and spring seasons show a lower demand for bike rentals. This would be a good time to schedule regular maintenance and repairs to ensure that the bikes are in optimal condition for the peak season.
+                Musim dingin dan musim semi menunjukkan permintaan persewaan sepeda yang lebih rendah. Ini adalah saat yang tepat untuk menjadwalkan perawatan dan perbaikan rutin untuk memastikan sepeda berada dalam kondisi optimal untuk musim puncak.
 
-            - Promotional Activities:
-                
-                To encourage bike rentals during off-peak seasons or months with lower demand, promotional activities such as discounts or loyalty programs could be introduced.
+            - Aktivitas promosi:
+                        
+                Untuk mendorong penyewaan sepeda selama musim sepi atau bulan-bulan dengan permintaan lebih rendah, kegiatan promosi seperti diskon atau program loyalitas dapat diperkenalkan.
 
-            - Alternative Usage:
+            - Penggunaan Alternatif:
                 
-                During colder months when demand is low, consider alternative uses for the bikes. For example, they could be rented out for longer periods or used in partnership with local tour operators for guided tours.
+                Selama musim dingin ketika permintaan rendah, pertimbangkan penggunaan alternatif sepeda. Misalnya, mereka dapat disewakan untuk jangka waktu yang lebih lama atau digunakan dalam kemitraan dengan operator tur lokal untuk tur berpemandu.
 
-            - Dynamic Pricing:
+            - Harga Dinamis:
                 
-                Implement a dynamic pricing model where prices are lower during off-peak seasons to encourage usage, and higher during peak seasons when demand is high.
+                Menerapkan model penetapan harga dinamis di mana harga lebih rendah selama musim sepi untuk mendorong penggunaan, dan lebih tinggi selama musim puncak ketika permintaan tinggi.
 
-            - Weather-Proof Bikes:
+            - Sepeda Tahan Cuaca:
                 
-                Consider investing in weather-proof bikes or providing additional equipment like rain covers or warmer gear during colder months to attract customers.
+                Pertimbangkan untuk berinvestasi pada sepeda tahan cuaca atau menyediakan perlengkapan tambahan seperti penutup hujan atau perlengkapan penghangat selama musim dingin untuk menarik pelanggan.
             """
         )
 
-    with st.expander("Can we predict bike rental demand based on weather conditions?"):
+    with st.expander(
+        "Bisakah kita memperkirakan permintaan sewa sepeda berdasarkan kondisi cuaca?"
+    ):
         st.caption(
             """
-            Yes, it is possible to predict bike rental demand based on weather conditions using machine learning models. Weather conditions such as temperature, humidity, wind speed, and weather situation (clear, cloudy, rainy, etc.) can significantly influence the demand for bike rentals.
+            Ya, permintaan persewaan sepeda dapat diprediksi berdasarkan kondisi cuaca menggunakan model pembelajaran mesin. Kondisi cuaca seperti suhu, kelembapan, kecepatan angin, dan situasi cuaca (cerah, mendung, hujan, dll) dapat mempengaruhi permintaan sewa sepeda secara signifikan.
 
-            Based on the graph you provided, we can see clear trends in bike rentals across different weather situations. For instance, Weather Situation 1 (Clear, Few clouds, Partly cloudy) has the highest number of rentals, followed by Weather Situation 2 (Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds), and then Weather Situation 3 (Light Snow, Light Rain + Thunderstorm + Scattered clouds). This suggests that clear or partly cloudy weather is most favorable for bike rentals, while inclement weather like rain or snow reduces the demand.
+    Berdasarkan grafik yang Anda berikan, kami dapat melihat dengan jelas tren persewaan sepeda dalam berbagai situasi cuaca. Misalnya, Situasi Cuaca 1 (Cerah, Sedikit awan, Berawan sebagian) memiliki jumlah rental tertinggi, diikuti oleh Situasi Cuaca 2 (Kabut + Berawan, Kabut + Awan pecah, Kabut + Sedikit awan), dan kemudian Situasi Cuaca 3 (Cerah Salju, Hujan Ringan + Badai Petir + Awan berserakan). Hal ini menunjukkan bahwa cuaca cerah atau berawan sebagian paling menguntungkan bagi persewaan sepeda, sedangkan cuaca buruk seperti hujan atau salju mengurangi permintaan.
 
-            These trends can be used to train a machine learning model to predict bike rental demand based on weather conditions. The model could take in weather data as input and output the predicted number of bike rentals. This could be particularly useful for planning and resource allocation in bike rental services.
+    Tren ini dapat digunakan untuk melatih model pembelajaran mesin guna memprediksi permintaan sewa sepeda berdasarkan kondisi cuaca. Model tersebut dapat mengambil data cuaca sebagai masukan dan keluaran perkiraan jumlah penyewaan sepeda. Hal ini khususnya berguna untuk perencanaan dan alokasi sumber daya dalam layanan penyewaan sepeda.
             """
         )
