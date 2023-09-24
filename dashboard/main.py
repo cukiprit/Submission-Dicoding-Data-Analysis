@@ -81,7 +81,7 @@ max_date = categorical_df["dteday"].max()
 with st.sidebar:
     st.header("Portofolio Data Analysis Bike Rental")
 
-    start_date, end_date = st.date_input(
+    start_date, end_date = st.date_input( # type: ignore
         label="Period",
         min_value=min_date,
         max_value=max_date,
@@ -137,9 +137,20 @@ with st.container():
     st.header("Introduction")
     st.markdown(
         """
-        The metrics displayed above offer valuable insights into daily bike rentals spanning from January 1, 2011, to December 31, 2012, while considering influential factors such as weather and season. 'Total Rentals' provides a comprehensive overview, aggregating the cumulative count of all bike rentals ('cnt') to present a holistic perspective on overall bike usage. Additionally, 'Total Casual Users Rental' and 'Total Registered Users Rental' offer a detailed segmentation, shedding light on rental preferences among user types ('casual' and 'registered').
+        The data set in question provides comprehensive information about bike rentals over the course of two years (2011 and 2012). The data is categorized by various factors such as time (year, month, hour), weather conditions (temperature, humidity, wind speed), and user type (casual or registered). This report aims to analyze this data, focusing specifically on the daily data, to identify patterns and correlations that could provide valuable insights for business development.
+        """
+    )
 
-        Furthermore, the 'Delta' values accompanying these metrics represent day-to-day rental fluctuations. These variations encapsulate not only daily rental patterns but also account for the dynamic influence of external factors such as weather conditions ('Clear, Few clouds, Partly cloudy, Partly cloudy', 'Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist', 'Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds') and seasonal transitions ('Springer', 'Summer', 'Fall', 'Winter'). By continuously tracking these multifaceted trends over time, we gain profound insights into the intricate dynamics of bike rentals, enabling data-driven decisions related to resource allocation and service enhancements.
+    st.divider()
+
+    st.header("Categorization")
+
+    st.markdown(
+        """
+        - Time-related: This includes the year, month, and whether the day is a holiday or working day.
+        - Weather-related: This includes the weather situation, temperature, humidity, and wind speed.
+        - Season-related: This includes the season situation.
+        - User-related: This includes the count of casual users, registered users, and total rental bikes.
         """
     )
 
@@ -149,19 +160,15 @@ with st.container():
 
     st.markdown(
         """
-        The dataset can be systematically categorized into distinct groups, each offering valuable insights:
+        Based on the data, we can formulate business questions:
 
-        - Temporal Attributes:
-          This category encompasses temporal aspects, including the year, month, day. Analyzing these temporal trends allows us to discern patterns related to time-based variations in bike rentals.
-
-        - Weather-Related Metrics:
-          Within this group, we consider weather-related parameters such as the prevailing weather conditions, temperature, humidity levels, and wind speed. Examining these variables aids in understanding the impact of weather on bike rental demand and usage patterns.
-
-        - Seasonal Characteristics:
-          This category focuses on the seasonal context, identifying the prevailing season at a given time. Seasonal variations are pivotal in discerning how rental patterns evolve throughout the year.
-
-        - User-Related Metrics:
-          Here, we delve into user-specific data, comprising the counts of casual users, registered users, and the total number of rental bikes. This segmentation enables a comprehensive analysis of user behavior and preferences.
+        - How do bike rentals vary across different seasons and months?
+        - How does weather affect bike rentals?
+        - What are the differences between casual and registered users in terms of rental patterns?
+        - Is there a correlation between weather conditions and bike rentals?
+        - How does the time of year affect the behavior of casual versus registered users?
+        - How can we optimize bike availability according to seasonal trends?
+        - Can we predict bike rental demand based on weather conditions?
         """
     )
 
@@ -349,7 +356,7 @@ with st.container():
         ax[i].bar_label(ax[i].containers[0], size="12")
         i = i + 1
 
-    st.pyplot(plt)
+    st.pyplot(fig)
 
     col1, col2 = st.columns(2)
 
@@ -427,6 +434,8 @@ with st.container():
         """
     )
 
+st.divider()
+
 with st.container():
     st.subheader("Humidity Trends")
     st.line_chart(data=main_df, x="dteday", y="hum")
@@ -456,6 +465,8 @@ with st.container():
         """
     )
 
+st.divider()
+
 with st.container():
     st.subheader("Wind Speed Trends")
     st.line_chart(data=main_df, x="dteday", y="windspeed")
@@ -479,6 +490,14 @@ with st.container():
             label="Min Windspeed",
             value=f"{(main_df['windspeed'].min() * 100):.2f} km/h",
         )
+
+    st.caption(
+        f"""
+        The graph shows the variation of wind speed over time from {start_date} to {end_date}. The wind speed is measured in kilometers per hour (km/h) and the time is measured in months. The graph has a lot of ups and downs, which means that the wind speed changes frequently and unpredictably. The highest wind speed recorded was 50.75 km/h, which is very fast and could cause damage to buildings and trees. The lowest wind speed recorded was 2.24 km/h, which is very slow and could make the air feel stagnant. The average wind speed was 19.05 km/h, which is moderate and comfortable for most people. The graph can help us understand the patterns and trends of wind speed over time and how they affect our environment and activities.
+        """
+    )
+
+st.divider()
 
 with st.container():
     st.subheader("Weather Impact")
@@ -510,6 +529,8 @@ with st.container():
         These trends suggest that favorable weather conditions (clear or partly cloudy) result in higher bike rentals while unfavorable conditions (rain, snow, thunderstorms) result in fewer rentals.
         """
     )
+
+st.divider()
 
 with st.container():
     st.subheader("User Impact")
@@ -546,6 +567,8 @@ with st.container():
         In summary, casual users tend to make up a higher percentage of total rentals and their usage appears to be more variable. On the other hand, registered users have a lower but more consistent percentage of total rentals.
         """
     )
+
+st.divider()
 
 with st.container():
     st.subheader("Conclusion")
